@@ -37,7 +37,7 @@ exports.getFlightByNumber = async (req, res) => {
 
 exports.getFares = async (req, res) => {
     try {
-        const reservation = await Reservation.find({}, {flight_number:1,fare_code:1,amount:1});
+        const fare = await Fare.find({}, {flight_number:1,fare_code:1,amount:1});
         res.json({
             status:200,
             number_of_result:fare.length,

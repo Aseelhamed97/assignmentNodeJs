@@ -3,7 +3,7 @@ const Seat_reservation = require('./Seat_reservation');
 
 const FareSchema = new mongoose.Schema(
     {   
-        flight_number: {type: String},
+        flight_number: {type: String, require: true},
         fare_code: {type: String, require: true},
         amount: {type: Number, require: true},
         restrictions: {type: String, require: true}
