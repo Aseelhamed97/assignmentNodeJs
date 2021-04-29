@@ -2,7 +2,6 @@ const Flight = require("../models/Flight");
 const Fare = require("../models/Fare");
 const Reservation = require("../models/Seat_reservation");
 const mongoose = require("mongoose");
-const database = require("../config/db");
 
 exports.getFlights = async (req, res) => {
   try {

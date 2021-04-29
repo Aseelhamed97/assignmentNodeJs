@@ -1,11 +1,20 @@
 const fs = require("fs");
 const db = require("./config/db.js");
+const mongoose = require("mongoose");
 
 // Load Models
 const Seat_reservation = require("./models/Seat_reservation.js");
 
 // Connect to Mongo Database
-db().then();
+const connectDatabase = async () => {
+  const conn = await mongoose.connect("mongodb://localhost:27017/customer", {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  });
+
+  console.log(`MongoDB Connected: ${conn.connection.host}`);
+};
 
 // Read The JSON files
 const Seat_reservations = JSON.parse(
