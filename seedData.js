@@ -1,5 +1,4 @@
 const fs = require("fs");
-const db = require("./config/db.js");
 const mongoose = require("mongoose");
 
 // Load Models
