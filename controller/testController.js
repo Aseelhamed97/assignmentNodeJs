@@ -74,13 +74,34 @@ exports.getReservations = async (req, res) => {
 exports.getInvoices = async (req, res) => {
     try {
         const customername = req.params.CustomerName;
-        const filterReservation = await Reservation.find({'customer_name': customername})
-        // .populate({path:'flight_number',select:['fare_code', 'amount']});
-        // .populate('flight_number');
-        console.log(filterReservation)
+        const filterReservation = await Reservation.find({'customer_name': customername},{
+        flight_number:1,
+        date:1
+    })
+       const arraycustomer=[];
+       const index=0;
+        for(let i = 0; i<filterReservation.length; i++){
+        const num = filterReservation[i].flight_number;
+        const filterFare = await Fare.find({'flight_number': num},{
+            fare_code:1,
+            amount:1
+        })
 
-        res.json({
-            flights: filterReservation
+         const datecustomer= filterReservation[i].date;
+         const fareCode= filterFare[index].fare_code;
+         const price= filterFare[index].amount;
+
+         const objcustomer={
+             flight_number:num,
+             date:datecustomer,
+             fare_code:fareCode,
+             price:price
+         };
+          arraycustomer[i]=objcustomer;
+         
+        }
+    res.json({
+        flights: arraycustomer
         });
     } catch (err) {
         res.json({error: 'Something went wrong'});
@@ -88,11 +109,3 @@ exports.getInvoices = async (req, res) => {
 
 }
 
-// filterReservation.aggregate([
-//     {"$lookup": {
-//       "from": "Reservaton",
-//       "localField": "flight_number",
-//       "foreignField": "flight_number",
-//       "as": "R"
-//        }}
-//     ])
